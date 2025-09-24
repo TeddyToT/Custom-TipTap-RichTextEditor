@@ -1,0 +1,10 @@
+{
+  "form-creation": {
+    "title": "Tạo bài viết mới",
+    "description": "Điền thông tin dưới đây để tạo bài viết mới.",
+    "input-title-label": "Tiêu đề bài viết",
+    "input-title-placeholder": "Nhập tiêu đề bài viết",
+    "submit-create": "Tạo bài viết",
+    "submit-update": "Cập nhật bài viết"
+  }
+}
