@@ -11,10 +11,10 @@ const LinkButton: React.FC<LinkButtonProps> = ({ editor }) => {
   const [showDialog, setShowDialog] = useState(false);
 const isLinkActive = useActive(editor, "link", { type: "mark" });
 
-const handleConfirm = (url: string, text: string | undefined, newTab: boolean) => {
+const handleConfirm = (url: string, text: string | undefined) => {
   if (!editor || !url) return;
   const { from, to } = editor.state.selection;
-  const target = newTab ? "_blank" : undefined;
+  const target = "_blank"
   const insertText = text && text.trim() ? text : url;
 
   // CASE có selection (from !== to)
@@ -63,9 +63,9 @@ const handleConfirm = (url: string, text: string | undefined, newTab: boolean) =
             editor.state.selection.to,
             " "
           )}
-          openInNewTab={editor.getAttributes("link").target === "_blank"}
+          // openInNewTab={editor.getAttributes("link").target === "_blank"}
 
-          onConfirm={(url, text, newTab) => {handleConfirm(url, text, newTab)}}
+          onConfirm={(url, text) => {handleConfirm(url, text)}}
 
           onCancel={() => setShowDialog(false)}
           onRemove={() => {

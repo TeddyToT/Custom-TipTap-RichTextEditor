@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { SquarePlus } from 'lucide-react';
 import ColorPickerField from './components/color-picker-field/ColorPickerField';
+type ButtonConfigValue =
+  | string
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'primary'
+  | 'outline';
 
 interface ButtonDialogProps {
   onConfirm: (buttonConfig: {
@@ -41,7 +48,7 @@ const ButtonDialog: React.FC<ButtonDialogProps> = ({ onConfirm, onCancel }) => {
     onConfirm(config);
   };
 
-  const updateConfig = (key: string, value: any) => {
+  const updateConfig = (key: string, value: ButtonConfigValue) => {
     setConfig(prev => ({ ...prev, [key]: value }));
   };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NodeViewWrapper } from "@tiptap/react";
 import type { NodeViewProps } from "@tiptap/react";
+import { NodeSelection } from "prosemirror-state";
 import {
   AlignLeft,
   AlignCenter,
@@ -10,12 +11,12 @@ import {
   RectangleHorizontal,
 } from "lucide-react";
 import BubbleToolbar from "../../../../../components/bubble-toolbar/BubbleToolbar";
-import type { CustomImageRenderProps } from "../../lib/types";
+import type { CustomImageNodeAttrs } from "../../lib/types";
 import { FloatLeftIcon, FloatRightIcon } from "../../lib/ImgFloatIcon";
 import { getAnimationClasses } from "../../../../animation-utils";
 const CustomImageRender = (props: NodeViewProps) => {
   const { node, updateAttributes, editor, getPos } = props;
-  const { src, alt, width, height, align, float, margin, display } = node.attrs as CustomImageRenderProps;
+  const { src, alt, width, height, align, float, margin, display } = node.attrs as CustomImageNodeAttrs;
 
   const [resizing, setResizing] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
@@ -28,7 +29,7 @@ const CustomImageRender = (props: NodeViewProps) => {
       const pos = getPos();
 
       // Check if this node is specifically selected
-      if (selection.node && selection.from === pos) {
+      if (selection instanceof NodeSelection && selection.from === pos) {
         setIsSelected(true);
       } else {
         setIsSelected(false);
@@ -82,10 +83,12 @@ const CustomImageRender = (props: NodeViewProps) => {
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
   };
-
-  const setSelection = () => {
-    editor?.commands.setNodeSelection(getPos());
-  };
+const setSelection = () => {
+  const pos = getPos();
+  if (typeof pos === "number") {
+    editor?.commands.setNodeSelection(pos);
+  }
+};
 
   const getContainerStyle = () => {
     const baseStyle: React.CSSProperties = {
@@ -109,7 +112,7 @@ const CustomImageRender = (props: NodeViewProps) => {
       baseStyle.margin = margin || "0 5px";
 
       if (float && float !== "none") {
-        baseStyle.float = float as any;
+        baseStyle.float = float as "left" | "right";
       }
     }
 

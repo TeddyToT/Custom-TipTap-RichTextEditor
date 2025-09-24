@@ -1,20 +1,29 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { NodeViewWrapper } from "@tiptap/react"
+import type { NodeViewProps } from "@tiptap/react";
+
 import BubbleToolbar from "../../../../components/bubble-toolbar/BubbleToolbar"
 import { Settings, Trash2 } from "lucide-react"
 import { ChevronDown, ChevronUp } from "lucide-react"
-const CustomDropdownRender = ({ node, updateAttributes, editor, getPos }) => {
+
+type DropdownOption = { label: string; url?: string };
+
+const CustomDropdownRender = ({ node, editor, getPos }:NodeViewProps) => {
   const { options = [], placeholder = "Tùy chọn" } = node.attrs
   const [open, setOpen] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
 
   const setSelection = () => {
-    editor?.commands.setNodeSelection(getPos())
-  }
+    const pos = getPos();
+    if (typeof pos === "number") {
+      editor?.commands.setNodeSelection(pos);
+    }
+  };
+
 
   const isSelected = editor?.isActive("customDropdown")
 
-  const handleClickOption = (opt) => {
+  const handleClickOption = (opt: DropdownOption) => {
     if (opt.url) {
       window.open(opt.url, "_blank")
     } else {
@@ -43,7 +52,7 @@ const CustomDropdownRender = ({ node, updateAttributes, editor, getPos }) => {
       {/* Menu options */}
       {open && (
         <div className="absolute left-0 mt-2 w-56 bg-white shadow-md rounded-lg p-2 z-50 border">
-          {options.map((opt, i) => (
+          {options.map((opt: DropdownOption, i: number) => (
             <div
               key={i}
               onClick={() => handleClickOption(opt)}

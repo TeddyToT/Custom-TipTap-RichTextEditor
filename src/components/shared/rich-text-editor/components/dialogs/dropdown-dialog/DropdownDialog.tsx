@@ -1,14 +1,17 @@
 import { useState } from "react"
+import type { Option, DropdownDialogProps } from "./lib/types"
 
-const DropdownDialog = ({ onConfirm, onCancel }) => {
-  const [options, setOptions] = useState([{ label: "Lựa chọn 1", value: "opt1", url: "" }])
+const DropdownDialog = ({ onConfirm, onCancel }:DropdownDialogProps ) => {
+  const [options, setOptions] = useState<Option[]>([
+    { label: "Lựa chọn 1", value: "opt1", url: "" },
+  ])
   const [placeholder, setPlaceholder] = useState("Tùy chọn")
 
   const handleAdd = () => {
     setOptions([...options, { label: "", value: `opt${options.length + 1}`, url: "" }])
   }
 
-  const handleChange = (i:number, key:string, val) => {
+  const handleChange = (i: number, key: keyof Option, val: string) => {
     const newOpts = [...options]
     newOpts[i][key] = val
     setOptions(newOpts)

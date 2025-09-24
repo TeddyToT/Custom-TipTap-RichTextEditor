@@ -95,22 +95,23 @@ const CustomAnimation = Extension.create({
       const originalToDOM = originalSpec.toDOM;
 
       if (originalToDOM) {
-        nodeType.spec = {
-          ...originalSpec,
-          toDOM(node) {
-            const result = (typeof originalToDOM === "function") ? originalToDOM(node) : originalToDOM;
-            const animationClasses = getAnimationClasses(node.attrs);
+        // nodeType.spec = {
+        //   ...originalSpec,
+        //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        //   toDOM(node: any) {
+        //     const result = (typeof originalToDOM === "function") ? originalToDOM(node) : originalToDOM;
+        //     const animationClasses = getAnimationClasses(node.attrs);
 
-            if (animationClasses && Array.isArray(result) && result.length > 1 && typeof result[1] === "object") {
-              result[1] = {
-                ...result[1],
-                class: `${result[1].class || ""} ${animationClasses}`.trim(),
-              };
-            }
+        //     if (animationClasses && Array.isArray(result) && result.length > 1 && typeof result[1] === "object") {
+        //       result[1] = {
+        //         ...result[1],
+        //         class: `${result[1].class || ""} ${animationClasses}`.trim(),
+        //       };
+        //     }
 
-            return result;
-          },
-        };
+        //     return result;
+        //   },
+        // };
       }
     });
   },
@@ -182,6 +183,7 @@ const CustomAnimation = Extension.create({
 unsetAnimation:
   () =>
   ({ tr, state, dispatch }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this as any).removeAnimation()({ tr, state, dispatch });
   },
 

@@ -50,8 +50,11 @@ const editor = useEditor({
 });
 
 // Function to generate animation classes
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getAnimationClasses = (attrs: any) => {
-    const { animationType, animationDuration, animationDelay, animationRepeat, animationEase, animationHoverPause } = attrs;
+    // const { animationType, animationDuration, animationDelay, animationRepeat, animationEase, animationHoverPause } = attrs;
+    const { animationType, animationDuration, animationRepeat, animationHoverPause } = attrs;
+
     if (!animationType) return '';
     
     const classes: string[] = [];
@@ -154,6 +157,7 @@ const getHTMLWithAnimations = () => {
     setShowLinkDialog(false);
   }, [editor]);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addButton = useCallback((buttonConfig: any) => {
   if (editor) {
     editor.commands.insertButton(buttonConfig);
@@ -161,6 +165,7 @@ const addButton = useCallback((buttonConfig: any) => {
   }
 }, [editor]);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addDropdown = useCallback((dropdownConfig: any) => {
   if (editor) {
     editor.commands.insertDropdown(dropdownConfig);
@@ -170,6 +175,7 @@ const addDropdown = useCallback((dropdownConfig: any) => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [editor])
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addAnimation = useCallback((animationConfig: any) => {
     if (editor) {
       if (editor.state.selection.empty) {
@@ -188,7 +194,7 @@ const removeAnimation = useCallback(() => {
 
     let found = false;
 
-    state.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
+    state.doc.nodesBetween(selection.from, selection.to, (node) => {
       if (node.type.name !== "text") {
         editor.commands.updateAttributes(node.type.name, {
           animationType: null,
@@ -229,6 +235,7 @@ const getCurrentAnimation = () => {
     const { selection } = editor.state;
     const { from, to } = selection;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let currentNode: any = null;
     editor.state.doc.nodesBetween(from, to, (node) => {
       if (node.type.name !== "text" && !currentNode) {

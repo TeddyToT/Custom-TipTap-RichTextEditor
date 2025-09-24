@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormField, FormItem, FormMessage } from '../../../../../components/ui/form'
 import { PostPreview, RichTextEditor } from '../../../../../components/shared'
@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { DEFAULT_POST_CREATION_FORM_VALUES, POST_CREATION_FORM_SCHEMA } from './lib/constants'
 
 const PostCreationForm = () => {
-  const [imageUrlList, setImageUrlList] = useState<string[]>([])
+  // const [imageUrlList, setImageUrlList] = useState<string[]>([])
 
   const form = useForm<PostCreationFormType>({
     resolver: zodResolver(POST_CREATION_FORM_SCHEMA),
@@ -43,8 +43,8 @@ const PostCreationForm = () => {
                         <RichTextEditor
                           value={field.value}
                           onChange={field.onChange}
-                          onUploadImage={(url) => setImageUrlList((prev) => [...prev, url])}
-                          onDeleteImage={(url) => setImageUrlList((prev) => prev.filter((u) => u !== url))}
+                          // onUploadImage={(url) => setImageUrlList((prev) => [...prev, url])}
+                          // onDeleteImage={(url) => setImageUrlList((prev) => prev.filter((u) => u !== url))}
                         />
                       </div>
                       <FormMessage className='mt-1 text-xs text-red-500' />

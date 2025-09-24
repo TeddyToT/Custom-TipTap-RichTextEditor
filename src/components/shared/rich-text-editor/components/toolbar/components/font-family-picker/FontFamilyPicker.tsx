@@ -42,7 +42,6 @@ export default function FontFamilyPicker({ editor }: { editor: Editor }) {
       editor.off("selectionUpdate", update);
       editor.off("transaction", update);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor]);
 
     const handleFontChange = (fontValue: string) => {

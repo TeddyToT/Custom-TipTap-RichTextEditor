@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { createPortal } from "react-dom";
 interface LinkDialogProps {
-  onConfirm: (url: string, text: string, newTab: boolean) => void;
+  onConfirm: (url: string, text: string,
+    //  newTab: boolean
+    ) => void;
   onCancel: () => void;
   onRemove?: () => void;
   currentUrl?: string;
   currentText?: string;
-  openInNewTab?: boolean;
+  // openInNewTab?: boolean;
 }
 
 const LinkDialog = ({
@@ -15,11 +17,11 @@ const LinkDialog = ({
   onRemove,
   currentUrl = "",
   currentText = "",
-  openInNewTab = false,
+  // openInNewTab = false,
 }:LinkDialogProps) => {
   const [url, setUrl] = useState(currentUrl);
   const [text, setText] = useState(currentText);
-  const [newTab, setNewTab] = useState(openInNewTab);
+  // const [newTab] = useState(openInNewTab);
 
   return createPortal(
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -63,7 +65,7 @@ const LinkDialog = ({
           {currentUrl && (
             <button
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-              onClick={() => (onRemove ? onRemove() : onConfirm( "","", false))}
+              onClick={() => (onRemove ? onRemove() : onConfirm( "",""))}
             >
               Xóa
             </button>
@@ -76,7 +78,7 @@ const LinkDialog = ({
           </button>
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={() => onConfirm(url, text, newTab)}
+            onClick={() => onConfirm(url, text)}
           >
             {currentUrl ? 'Cập nhật' : 'Thêm'}
           </button>

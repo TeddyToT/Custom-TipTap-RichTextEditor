@@ -109,6 +109,7 @@
       { value: 'ease-in-out', label: 'Ease In Out' }
     ];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updateConfig = (key: string, value: any) => {
       setConfig(prev => ({ ...prev, [key]: value }));
     };
