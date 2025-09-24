@@ -9,6 +9,21 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeddyToT/Custom-TipTap-RichTextEditor.git"
+  },
+    "keywords": [
+    "reactjs",
+    "frontend",
+    "nodejs",
+    "typescript",
+    "tiptap",
+    "editor"
+  ],
+  "author": "Tuan Minh Tran (TeddyToT)",
+  "license": "ISC",
+  "homepage": "https://github.com/TeddyToT/Custom-TipTap-RichTextEditor#readme",
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
     "@tailwindcss/vite": "^4.1.13",
