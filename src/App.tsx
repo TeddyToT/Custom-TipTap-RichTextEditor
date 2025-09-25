@@ -3,7 +3,7 @@ import FeedbackModal from "./components/shared/feed-back-model/FeedBackModel";
 import NoticeModel from "./components/shared/notice-model/NoticeModel";
 import { PostCreationForm } from "./app/views/post/components";
 import { Send, NotebookPen } from "lucide-react";
-import notice from "./lib/noticeMessage"
+import notices from "./lib/noticeMessage";
 function App() {
   const [openFeedback, setOpenFeedback] = useState(false);
   const [openNotice, setOpenNotice] = useState(false);
@@ -27,7 +27,7 @@ function App() {
         </button>
       </div>
       {openFeedback && <FeedbackModal onClose={() => setOpenFeedback(false)} />}
-        {openNotice && <NoticeModel message={notice.message} version={notice.version} onClose={() => setOpenNotice(false)} />}
+        {openNotice && <NoticeModel notices={notices} onClose={() => setOpenNotice(false)} />}
       <PostCreationForm />
     </div>
   );
