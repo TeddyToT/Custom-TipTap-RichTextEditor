@@ -17,6 +17,7 @@ declare module "@tiptap/core" {
         padding?: string;
         float?: string;
         margin?: string;
+        display?: string;
       }) => ReturnType;
       updateTextarea: (options: {
         width?: string;
@@ -30,6 +31,7 @@ declare module "@tiptap/core" {
         padding?: string;
         float?: string;
         margin?: string;
+        display?: string;
       }) => ReturnType;
     };
   }
@@ -118,7 +120,7 @@ const CustomTextarea = Node.create({
         },
       },
       float: {
-        default: "left",
+        default: "none",
         parseHTML: (element) => element.style.float,
         renderHTML: (attributes) => {
           if (!attributes.float) return {};
@@ -126,11 +128,19 @@ const CustomTextarea = Node.create({
         },
       },
       margin: {
-        default: "0px",
+        default: "",
         parseHTML: (element) => element.style.margin,
         renderHTML: (attributes) => {
           if (!attributes.margin) return {};
           return { style: `margin: ${attributes.margin}` };
+        },
+      },
+            display: {
+        default: "block",
+        parseHTML: (element) => element.style.display,
+        renderHTML: (attributes) => {
+          if (!attributes.display) return {};
+          return { style: `display: ${attributes.display}` };
         },
       },
     };
@@ -157,6 +167,7 @@ const CustomTextarea = Node.create({
       padding,
       float,
       margin,
+      display
     } = HTMLAttributes;
     const styleString = [
       width && `width: ${width}`,
@@ -166,12 +177,13 @@ const CustomTextarea = Node.create({
       border && `border: ${border}`,
       borderRadius && `border-radius: ${borderRadius}`,
       padding && `padding: ${padding}`,
-      float && `float: ${float}`,
+      display!=="block"&& float && `float: ${float}`,
       margin && `margin: ${margin}`,
+      // display==="block" && `margin: ${margin}` && `margin-left: auto` && `margin-right: auto`,
       `overflow: auto`,
       `white-space: pre-wrap`,
       `word-break: break-word`,
-      `display: inline-block`,
+      display && `display: ${display}`,
       `outline: none`,
     ]
       .filter(Boolean)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { TextSelect } from "lucide-react";
+import { RectangleHorizontal, Square, TextSelect } from "lucide-react";
 import ColorPickerField from "../button-dialog/components/color-picker-field/ColorPickerField";
+import ImageModeButton from "../image-dialog/components/image-mode-button/ImageModeButton";
 
 interface TextareaConfig {
   width: string;
@@ -12,6 +13,7 @@ interface TextareaConfig {
   padding: string;
   float: string;
   margin: string;
+  display: "block" | "inline-block";
 }
 
 interface TextareaDialogProps {
@@ -37,6 +39,7 @@ const TextareaDialog: React.FC<TextareaDialogProps> = ({
     padding: "12px",
     float: "none",
     margin: "2px 2px 2px 2px",
+    display: "block",
     ...currentConfig,
   });
 
@@ -92,6 +95,7 @@ const TextareaDialog: React.FC<TextareaDialogProps> = ({
       padding: config.padding,
       float: config.float as React.CSSProperties["float"],
       margin: config.margin,
+      display: config.display,
       resize: "none" as const,
       outline: "none",
       fontFamily: "inherit",
@@ -218,28 +222,66 @@ const TextareaDialog: React.FC<TextareaDialogProps> = ({
               />
             </div>
           </div>
+          <label className="block text-sm font-medium text-gray-700 mb-3">
+            Chế độ hiển thị
+          </label>
+          <div className="grid grid-cols-2 gap-2 mb-6">
+            <ImageModeButton
+              mode="inline-block"
+              currentMode={config.display}
+              onClick={() => updateConfig("display", "inline-block")}
+              icon={<RectangleHorizontal className="w-5 h-5" />}
+              label="Inline"
+              description="Nhiều ảnh cùng hàng"
+              tooltip={
+                <>
+                  <p>
+                    <strong>Inline mode:</strong> Sẽ nằm cùng hàng với text và
+                    đối tượng khác.
+                  </p>
+                </>
+              }
+            />
+            <ImageModeButton
+              mode="block"
+              currentMode={config.display}
+              onClick={() => updateConfig("display", "block")}
+              icon={<Square className="w-5 h-5" />}
+              label="Block"
+              description="Ảnh đơn lẻ"
+              tooltip={
+                <p>
+                  <strong>Block mode:</strong> Sẽ xuống hàng riêng, có thể căn
+                  trái / giữa / phải bằng margin.
+                </p>
+              }
+            />
+          </div>
+          {config.display === "inline-block" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Căn lề
+              </label>
+              <select
+                value={config.float || "none"}
+                onChange={(e) => updateConfig("float", e.target.value)}
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="none">Không</option>
+                <option value="left">Trái</option>
+                <option value="right">Phải</option>
+              </select>
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Căn lề
+              Khoảng cách (margin)
             </label>
-            <select
-              value={config.float || "none"}
-              onChange={(e) => updateConfig("float", e.target.value)}
-              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="none">Không</option>
-              <option value="left">Trái</option>
-              <option value="right">Phải</option>
-            </select>
-          </div>
-
-                    <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Khoảng cách (margin)</label>
             <input
               type="text"
               value={config.margin}
-              onChange={(e) => updateConfig('margin', e.target.value)}
+              onChange={(e) => updateConfig("margin", e.target.value)}
               className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="Trên phải dưới trái (theo px, ví dụ: 2px 2px 2px 2px)"
             />

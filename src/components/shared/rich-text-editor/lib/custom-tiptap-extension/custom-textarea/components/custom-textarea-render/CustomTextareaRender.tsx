@@ -28,6 +28,7 @@ const CustomTextareaRender = ({
     border,
     float,
     margin,
+    display
   } = node.attrs;
 
   // Handle click outside to deselect
@@ -144,7 +145,7 @@ const CustomTextareaRender = ({
       ref={wrapperRef}
       className="inline-block relative group"
       style={{
-      display: "inline-block",
+      display: display|| "block",
       float: float || "none",
       verticalAlign: "top",
     }}
