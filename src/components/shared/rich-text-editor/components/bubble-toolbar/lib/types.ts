@@ -1,8 +1,8 @@
 import { Editor } from "@tiptap/react";
 
-type BubbleButton = {
+type BubbleButton<T extends HTMLElement = HTMLButtonElement> = {
   icon: React.ReactNode;
-  onClick: () => void;
+  onClick: (e?: React.MouseEvent<T>) => void;
   active?: boolean;
   title: string;
   className?: string;

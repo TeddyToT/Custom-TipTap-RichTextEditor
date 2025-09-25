@@ -24,9 +24,11 @@ import {
   SquarePlus,
   PanelBottomClose,
   Zap,
+  TextSelect,
 } from "lucide-react";
 import { Editor } from "@tiptap/react";
 interface ToolbarProps {
+  html: string;
   editor: Editor | null;
   setShowImageDialog: (value: boolean) => void;
   setShowVideoDialog: (value: boolean) => void;
@@ -34,6 +36,7 @@ interface ToolbarProps {
   setShowButtonDialog: (value: boolean) => void;
   setShowDropdownDialog: (value: boolean) => void;
   setShowAnimationDialog: (value: boolean) => void;
+  setShowTextareaDialog: (value: boolean) => void;
 }
 
 import useActive from "./lib/isActiveNode";
@@ -43,12 +46,14 @@ import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 
 const Toolbar: React.FC<ToolbarProps> = ({
+  html,
   editor,
   setShowImageDialog,
   setShowVideoDialog,
   setShowButtonDialog,
   setShowDropdownDialog,
   setShowAnimationDialog,
+  setShowTextareaDialog,
 }) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const isBlockquoteActive = useActive(editor, "blockquote");
@@ -244,6 +249,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
           title="Chèn Animation"
         />
       </div>
+      <ToolbarButton
+        icon={TextSelect}
+        onClick={() => setShowTextareaDialog(true)}
+        title="Chèn Textarea"
+      />
 
       <div className="flex gap-1">
         <ToolbarButton
@@ -255,7 +265,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
         <ToolbarButton
           onClick={() => {
             if (!editor) return;
-            const contentHTML = editor.getHTML();
+            const contentHTML = html;
 
             const fullHTML = `
   <!DOCTYPE html>

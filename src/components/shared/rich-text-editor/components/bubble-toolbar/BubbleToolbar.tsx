@@ -5,15 +5,14 @@ const BubbleToolbar = ({
   buttons,
   visible = true,
   className = "",
-}:BubbleToolbarProps) => {
+}: BubbleToolbarProps) => {
   if (!editor || !visible) return null;
 
   return (
-    <div
-      className={`flex gap-2 ${className}`}
-    >
+    <div className={`flex gap-2 ${className}`}>
       {buttons.map((btn, i) => (
         <button
+          type="button"
           key={i}
           title={btn.title}
           onMouseDown={(e) => e.preventDefault()}
