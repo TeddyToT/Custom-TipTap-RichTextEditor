@@ -2,7 +2,7 @@ const notices = [
   {
     version: "v2025.09.25",
     message: {
-      resolves: ["Thêm custion extension Dropdown"],
+      resolves: ["Thêm custom extension Dropdown"],
       problems: [
         "Video và danh sách có thứ tự chưa được custom, tối ưu",
         "Animation chưa tối ưu chọn các đối tượng",
