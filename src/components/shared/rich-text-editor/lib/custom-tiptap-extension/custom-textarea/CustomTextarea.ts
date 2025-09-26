@@ -36,7 +36,61 @@ declare module "@tiptap/core" {
     };
   }
 }
+function injectCustomScrollbarCSS() {
+  if (!document.getElementById("custom-scrollbar-style")) {
+    const styleTag = document.createElement("style");
+    styleTag.id = "custom-scrollbar-style";
+    styleTag.innerHTML = `
+      [data-custom-textarea="true"]::-webkit-scrollbar {
+  width: 10px;
+}
 
+[data-custom-textarea="true"]::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+[data-custom-textarea="true"]::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 10px;
+}
+
+[data-custom-textarea="true"]::-webkit-scrollbar-thumb:hover {
+  background: #99CCFF;
+}
+
+/* ArrowButton */
+[data-custom-textarea="true"]::-webkit-scrollbar-button:single-button {
+  display: block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+   background-size: 20px;
+  background-color: transparent;
+  border: none;
+}
+
+/* ArrowUp */
+[data-custom-textarea="true"]::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 8l-6 6h12z'/></svg>");
+}
+
+[data-custom-textarea="true"]::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 8l-6 6h12z'/></svg>");
+}
+
+/* ArrowDown */
+[data-custom-textarea="true"]::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 16l6-6H6z'/></svg>");
+}
+
+[data-custom-textarea="true"]::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 16l6-6H6z'/></svg>");
+}
+    `;
+    document.head.appendChild(styleTag);
+  }
+}
 const CustomTextarea = Node.create({
   name: "customTextarea",
   group: "block",
@@ -135,7 +189,7 @@ const CustomTextarea = Node.create({
           return { style: `margin: ${attributes.margin}` };
         },
       },
-            display: {
+      display: {
         default: "block",
         parseHTML: (element) => element.style.display,
         renderHTML: (attributes) => {
@@ -155,6 +209,7 @@ const CustomTextarea = Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
+    injectCustomScrollbarCSS();
     const {
       width,
       height,
@@ -167,7 +222,7 @@ const CustomTextarea = Node.create({
       padding,
       float,
       margin,
-      display
+      display,
     } = HTMLAttributes;
     const styleString = [
       width && `width: ${width}`,
@@ -177,7 +232,7 @@ const CustomTextarea = Node.create({
       border && `border: ${border}`,
       borderRadius && `border-radius: ${borderRadius}`,
       padding && `padding: ${padding}`,
-      display!=="block"&& float && `float: ${float}`,
+      display !== "block" && float && `float: ${float}`,
       margin && `margin: ${margin}`,
       // display==="block" && `margin: ${margin}` && `margin-left: auto` && `margin-right: auto`,
       `overflow: auto`,
@@ -219,7 +274,7 @@ const CustomTextarea = Node.create({
                 content: [
                   {
                     type: "text",
-                    text: "Type your text here...",
+                    text: "Bắt đầu viết...",
                   },
                 ],
               },

@@ -232,7 +232,7 @@ const TextareaDialog: React.FC<TextareaDialogProps> = ({
               onClick={() => updateConfig("display", "inline-block")}
               icon={<RectangleHorizontal className="w-5 h-5" />}
               label="Inline"
-              description="Nhiều ảnh cùng hàng"
+              description="Mode nhiều box cùng hàng"
               tooltip={
                 <>
                   <p>
@@ -248,11 +248,11 @@ const TextareaDialog: React.FC<TextareaDialogProps> = ({
               onClick={() => updateConfig("display", "block")}
               icon={<Square className="w-5 h-5" />}
               label="Block"
-              description="Ảnh đơn lẻ"
+              description="Mode đơn lẻ"
               tooltip={
                 <p>
                   <strong>Block mode:</strong> Sẽ xuống hàng riêng, có thể căn
-                  trái / giữa / phải bằng margin.
+                  trái / giữa / phải bằng margin
                 </p>
               }
             />
